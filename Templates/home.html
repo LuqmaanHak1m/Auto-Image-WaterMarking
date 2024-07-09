@@ -20,31 +20,60 @@
     <!-- 3 columns -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col bg-secondary">
+
+            <!-- Input Image section -->
+            <div class="col-5 bg-secondary">
+
+                <!-- Input Image preview -->
                 <div id="inputImgPreview" class="row">    
                 </div>
+
+                <!-- Input Image Form -->
                 <div class="row">
-                    <form id="blackAndWhiteUploadForm">
-                        <label for="inputImg">Select image:</label>
-                        <input type="file" id="inputImg" name="inputImg" accept="image/*">
-                        <input type="submit" onclick="displayInputFile(); blackAndWhite()" value="Black and White">
-                    </form>
+                    <label for="inputImg">Select image:</label>
+                    <input type="file" id="inputImg" name="inputImg" accept="image/*" oninput="displayInputFile()">
                 </div>
             </div>
 
-            <div class="col border text-light bg-dark">
+            <!-- WaterMark Input section -->
+            <div class="col-2 border text-light bg-dark">
+
+                <!-- Input Image preview -->
                 <div id="waterMarkImgPreview" class="row">    
                 </div>
 
+                <!-- Input Image Form -->
                 <div class="row">
-                    <label for="waterMarkImg">Select image:</label>
-                    <input type="file" id="waterMarkImg" name="waterMarkImg" accept="image/*">
-                    <input type="submit" onclick="displayWaterMarkFile()">
+                    <div class="col">
+                        <label for="waterMarkImg">Select image:</label>
+                        <input type="file" id="waterMarkImg" name="waterMarkImg" accept="image/*" oninput="displayWaterMarkFile()">
+                    </div>
+
+                    <!-- Position dropdown -->
+                    <div class="dropdown col">
+
+                        <select class="" id="position" name="position">
+                          <option>Bottom Right</option>
+                          <option>Bottom Left</option>
+                          <option>Top Right</option>
+                          <option>Top Left</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col">
+                        <!-- Options -->
+                        <form id="uploadForm">
+                            <input type="submit"  onclick="blackAndWhite()" value="Black and White">
+                            <input type="submit" onclick="waterMark()" value="Water Mark">
+                        </form>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="col bg-secondary">
+            <!-- Output Image section -->
+            <div class="col-5 bg-secondary">
                 <h2>Processed Image:</h2>
                 <img id="processedImage" src="" alt="Processed Image" style="display:none;">
             </div>
