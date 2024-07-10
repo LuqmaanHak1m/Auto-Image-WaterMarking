@@ -1,0 +1,33 @@
+.primary{
+    background: #6E9B7B;
+}
+
+.secondary{
+    background: #fff652;
+}
+
+.dark{
+    background: #1d3832;
+}
+
+.light{
+    background: #EFFDF3;
+}
+
+
+
+.txt-primary{
+    color: #6E9B7B;
+}
+
+.txt-secondary{
+    color: #fff652;
+}
+
+.txt-dark{
+    color: #1d3832;
+}
+
+.txt-light{
+    color: #EFFDF3;
+}

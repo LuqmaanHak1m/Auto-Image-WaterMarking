@@ -17,6 +17,7 @@ function displayInputFile() {
                 // Display image
                 const img = document.createElement('img');
                 img.src = e.target.result;
+                img.style.maxHeight = '300px';
                 img.style.maxWidth = '500px';
                 filePreview.appendChild(img);
             }
@@ -49,6 +50,7 @@ function displayWaterMarkFile() {
                 // Display image
                 const img = document.createElement('img');
                 img.src = e.target.result;
+                img.style.maxHeight = '300px';
                 img.style.maxWidth = '500px';
                 filePreview.appendChild(img);
             }
@@ -62,7 +64,7 @@ function displayWaterMarkFile() {
 }
 
 function blackAndWhite() {
-    document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+    document.getElementById('singleUploadForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
         // Getting input file
@@ -82,7 +84,8 @@ function blackAndWhite() {
             const url = URL.createObjectURL(blob);
             const img = document.getElementById('processedImage');
             img.src = url;
-            img.style.maxWidth = '500px';
+            img.style.maxHeight = '500px';
+            img.style.maxWidth = '1000px';
             img.style.display = 'block';
         } else {
             alert('Failed to upload image');
@@ -91,7 +94,7 @@ function blackAndWhite() {
 }
 
 function waterMark() {
-    document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+    document.getElementById('doubleUploadForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
         // Getting input file
@@ -118,7 +121,8 @@ function waterMark() {
             const url = URL.createObjectURL(blob);
             const img = document.getElementById('processedImage');
             img.src = url;
-            img.style.maxWidth = '500px';
+            img.style.maxHeight = '500px';
+            img.style.maxWidth = '1000px';
             img.style.display = 'block';
         } else {
             alert('Failed to upload image');

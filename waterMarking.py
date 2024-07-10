@@ -4,6 +4,8 @@ from functools import wraps
 from PIL import Image
 import io
 
+import imageProcessing
+
 
 
 app = Flask(__name__)
@@ -18,26 +20,21 @@ def home():
 
 @app.route('/blackAndWhite', methods= ["POST"])
 def blackAndWhite():
+
+    # Check if there is a files section in the post
     if 'file' not in request.files:
         return "No file part", 400
     
+    # Get the data from the post
     file = request.files['file']
 
-    print(file)
-    print(type(file))
-
+    # Check if a file has been selected
     if file.filename == '':
         return "No selected file", 400
     if file:
-        image = Image.open(file.stream)
-    
-        # Process the image (if needed)
-        processed_image = image.convert("L")  # Example: You can apply filters or transformations here
-        
-        # Save the processed image to a BytesIO object
-        img_io = io.BytesIO()
-        processed_image.save(img_io, 'JPEG')
-        img_io.seek(0)
+
+        # Convert the image to B&W
+        img_io = imageProcessing.convertToBW(file)
         
         # Send the processed image back as a response
         return send_file(img_io, mimetype='image/jpeg')
@@ -46,55 +43,27 @@ def blackAndWhite():
 
 @app.route('/waterMark', methods= ["POST"])
 def waterMark():
+
+    # Check if there is a files section in the post
     if 'file' not in request.files:
         return "No file part", 400
     
+    # Get the data from the post
     inputImgFile = request.files['file']
 
     waterMarkFile = request.files['file2']
 
+    inputPos = request.form["positionInput"]
 
+
+    # Check if a file has been selected
     if inputImgFile.filename == '' or waterMarkFile == '':
         return "No selected file", 400
+    
     if inputImgFile or waterMarkFile:
 
-        inputImg = Image.open(inputImgFile.stream)
-        waterMark = Image.open(waterMarkFile.stream)
-
-        inputPos = request.form["positionInput"]
-    
-        # Process the image (if needed)
-        # Watermark cropping
-        box = (0, 0, waterMark.width, waterMark.height)
-        region = waterMark.crop(box)
-
-        # Shrinking the watermark image
-        region = region.reduce(8, (0, 0, region.width, region.height))
-
-        match inputPos:
-
-            case "Bottom Right":
-                position = (inputImg.width - region.width, inputImg.height - region.height)
-            case "Bottom Left":
-                position = (0, inputImg.height - region.height)
-            case "Top Right":
-                position = (inputImg.width - region.width, 0)
-            case "Top Left":
-                position = (0, 0)
-            case _:
-                position = (inputImg.width - region.width, inputImg.height - region.height)
-
-        # Pasting the watermark on top of the original image
-        inputImg.paste(region, position)
-
-
-
-        processed_image = inputImg  
-        
-        # Save the processed image to a BytesIO object
-        img_io = io.BytesIO()
-        processed_image.save(img_io, 'JPEG')
-        img_io.seek(0)
+        # Convert the image to B&W
+        img_io = imageProcessing.converToWaterMark(inputImgFile, waterMarkFile, inputPos)
         
         # Send the processed image back as a response
         return send_file(img_io, mimetype='image/jpeg')

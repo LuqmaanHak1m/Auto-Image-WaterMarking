@@ -7,10 +7,11 @@
     <title>Base</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Css/base.css') }}">
     <script src="{{ url_for('static', filename='Scripts/fileUpload.js') }}"></script>
 </head>
 
-<body class="bg-light">
+<body class="light">
 
     <!-- Title -->
     <div class="col-12">
@@ -18,14 +19,14 @@
     </div>
 
     <!-- 3 columns -->
-    <div class="container-fluid">
+    <div class="container-fluid  me-3">
         <div class="row">
 
             <!-- Input Image section -->
-            <div class="col-5 bg-secondary">
+            <div class="col-6 border border-3 border-dark shadow primary txt-secondary fw-bold">
 
-                <!-- Input Image preview -->
-                <div id="inputImgPreview" class="row">    
+                <div class="col">
+                    <h2>Image 1:</h2>
                 </div>
 
                 <!-- Input Image Form -->
@@ -33,16 +34,28 @@
                     <label for="inputImg">Select image:</label>
                     <input type="file" id="inputImg" name="inputImg" accept="image/*" oninput="displayInputFile()">
                 </div>
+
+                <div class="col">
+                    <!-- Single Image Options -->
+                    <form id="singleUploadForm">
+                        <input type="submit"  onclick="blackAndWhite()" value="Black and White">
+                    </form>
+                </div>
+
+                <!-- Input Image preview -->
+                <div class="col p-3" id="inputImgPreview" class="row">    
+                </div>
             </div>
 
             <!-- WaterMark Input section -->
-            <div class="col-2 border text-light bg-dark">
+            <div class="col border border-3 border-dark shadow primary txt-secondary fw-bold">
 
-                <!-- Input Image preview -->
-                <div id="waterMarkImgPreview" class="row">    
+                <!-- WaterMark Image -->
+                <div class="">
+                    <h2>Image 2:</h2>
                 </div>
 
-                <!-- Input Image Form -->
+
                 <div class="row">
                     <div class="col">
                         <label for="waterMarkImg">Select image:</label>
@@ -50,7 +63,7 @@
                     </div>
 
                     <!-- Position dropdown -->
-                    <div class="dropdown col">
+                    <div class="col">
 
                         <select class="" id="position" name="position">
                           <option>Bottom Right</option>
@@ -59,25 +72,30 @@
                           <option>Top Left</option>
                         </select>
 
-                    </div>
-
-                    <div class="col">
-                        <!-- Options -->
-                        <form id="uploadForm">
-                            <input type="submit"  onclick="blackAndWhite()" value="Black and White">
+                    
+                        <!-- 2 Image Options -->
+                        <form id="doubleUploadForm">
                             <input type="submit" onclick="waterMark()" value="Water Mark">
                         </form>
                     </div>
                 </div>
 
+                <!-- Input Image preview -->
+                <div class="p-3" id="waterMarkImgPreview" class="row">    
+                </div>
+
             </div>
 
-            <!-- Output Image section -->
-            <div class="col-5 bg-secondary">
+        </div>
+
+        <!-- Output Image section -->
+        <div class="row border border-3 border-dark primary txt-dark">
+            <div class="col-2">
                 <h2>Processed Image:</h2>
+            </div>
+            <div class="col-8">
                 <img id="processedImage" src="" alt="Processed Image" style="display:none;">
             </div>
-
         </div>
     </div>
 
