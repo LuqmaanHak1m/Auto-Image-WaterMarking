@@ -1,9 +1,5 @@
 .primary{
-    background: #6E9B7B;
-}
-
-.secondary{
-    background: #fff652;
+    background: #52a1e6;
 }
 
 .dark{
@@ -31,3 +27,9 @@
 .txt-light{
     color: #EFFDF3;
 }
+
+.grad{
+    background-image: linear-gradient(to left bottom, #002ad1, #005be9, #007ef2, #009df1, #00b9ec, #3ac7ec, #5dd5ec, #7ce2ec, #74e8ef, #6ceff1, #65f5f1, #5ffbf1);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;}

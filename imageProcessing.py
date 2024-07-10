@@ -20,6 +20,10 @@ def converToWaterMark(inputImgFile, waterMarkFile, inputPos):
 
     # Process the image
     # Watermark cropping
+
+    #waterMark = waterMark.convert("RGBA")
+
+
     box = (0, 0, waterMark.width, waterMark.height)
     region = waterMark.crop(box)
 
@@ -40,7 +44,7 @@ def converToWaterMark(inputImgFile, waterMarkFile, inputPos):
             position = (inputImg.width - region.width, inputImg.height - region.height)
 
     # Pasting the watermark on top of the original image
-    inputImg.paste(region, position)
+    inputImg.paste(region, position, region)
 
 
     ## Sending the image back
