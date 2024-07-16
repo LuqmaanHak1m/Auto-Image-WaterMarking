@@ -1,4 +1,5 @@
 import io
+import math
 from PIL import Image
 
 def convertToBW(file):
@@ -14,22 +15,33 @@ def convertToBW(file):
 
     return img_io
 
-def converToWaterMark(inputImgFile, waterMarkFile, inputPos):
+def converToWaterMark(inputImgFile, waterMarkFile, inputPos, inputSize):
     inputImg = Image.open(inputImgFile.stream)
     waterMark = Image.open(waterMarkFile.stream)
 
     # Process the image
     # Watermark cropping
 
-    #waterMark = waterMark.convert("RGBA")
-
+    ## TODO If an image is already black and white, the watermark is also black and white???
 
     box = (0, 0, waterMark.width, waterMark.height)
     region = waterMark.crop(box)
 
     # Shrinking the watermark image
-    region = region.reduce(8, (0, 0, region.width, region.height))
+    match inputSize:
 
+        case "Small":
+            region = region.reduce(16, (0, 0, region.width, region.height))
+        case "Normal":
+            region = region.reduce(8, (0, 0, region.width, region.height))
+        case "Large":
+            region = region.reduce(4, (0, 0, region.width, region.height))
+        case "Extra Large":
+            region = region.reduce(2, (0, 0, region.width, region.height))
+        case _:
+            region = region.reduce(8, (0, 0, region.width, region.height))
+    
+    # Choosing the position of the watermark image
     match inputPos:
 
         case "Bottom Right":
@@ -44,7 +56,6 @@ def converToWaterMark(inputImgFile, waterMarkFile, inputPos):
             position = (inputImg.width - region.width, inputImg.height - region.height)
 
     # Pasting the watermark on top of the original image
-
     if region.has_transparency_data:
         inputImg.paste(region, position, region)
     else:

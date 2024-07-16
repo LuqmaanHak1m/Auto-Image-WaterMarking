@@ -55,6 +55,8 @@ def waterMark():
 
     inputPos = request.form["positionInput"]
 
+    inputSize = request.form["sizeInput"]
+
 
     # Check if a file has been selected
     if inputImgFile.filename == '' or waterMarkFile == '':
@@ -63,7 +65,7 @@ def waterMark():
     if inputImgFile or waterMarkFile:
 
         # Convert the image to B&W
-        img_io = imageProcessing.converToWaterMark(inputImgFile, waterMarkFile, inputPos)
+        img_io = imageProcessing.converToWaterMark(inputImgFile, waterMarkFile, inputPos, inputSize)
         
         # Send the processed image back as a response
         return send_file(img_io, mimetype='image/jpeg')

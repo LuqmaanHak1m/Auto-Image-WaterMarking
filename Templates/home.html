@@ -18,8 +18,8 @@
 <body class="light grad" style="height: 100%;">
 
     <!-- Title -->
-    <div class="col-12">
-        <h1>Auto Watermarker</h1>
+    <div class="">
+        <h1 class="mx-auto w-50 text-center antigrad border text-dark rounded">Auto Watermarker</h1>
     </div>
 
     <!-- Layout columns -->
@@ -42,7 +42,7 @@
                 <div class="col">
                     <!-- Single Image Options -->
                     <form id="singleUploadForm">
-                        <input class="btn btn-light btn-outline-dark" type="submit"  onclick="blackAndWhite()" value="Black and White">
+                        <input class="btn btn-light btn-outline-dark" type="submit" value="Black and White">
                     </form>
                 </div>
 
@@ -78,13 +78,20 @@
                                 <option class="dropdown-item">Top Left</option>
                             </select>
                         </div>
+
+                        <div class="col p-1">
+                            <label for="size">Select size:</label>
+                            <select class="form-select " id="size" name="size">
+                                <option class="dropdown-item">Small</option>
+                                <option class="dropdown-item" selected>Normal</option>
+                                <option class="dropdown-item">Large</option>
+                                <option class="dropdown-item">Extra Large</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Position dropdown -->
                     <div class="col p-2">
-
-                        
-
 
                     
                         <!-- 2 Image Options -->
@@ -106,6 +113,7 @@
         <div class="mx-4 my-2 row border rounded border-3 shadow border-dark primary">
             <div class="col-2">
                 <h2>Processed Image:</h2>
+                <h4>(Click the image to download)</h4>
             </div>
             <div class="col-8">
                 <a id="processedImageLink" download><img id="processedImage" src="" alt="Processed Image" style="display:none;" onclick="setLink();"></a>

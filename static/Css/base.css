@@ -32,4 +32,12 @@
     background-image: linear-gradient(to left bottom, #002ad1, #005be9, #007ef2, #009df1, #00b9ec, #3ac7ec, #5dd5ec, #7ce2ec, #74e8ef, #6ceff1, #65f5f1, #5ffbf1);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;}
+    background-size: cover;
+}
+
+.antigrad{
+    background-image: linear-gradient(to left bottom, #6bced1, #30c2da, #00b3e6, #00a2ee, #008eef, #007fec, #0070e7, #005fe1, #0053db, #0046d5, #0038ce, #0028c6);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

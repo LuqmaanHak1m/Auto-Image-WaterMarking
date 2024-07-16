@@ -62,6 +62,7 @@ function displayWaterMarkFile() {
 
 async function blackAndWhite() {
     const fileInput = document.getElementById('inputImg');
+    
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
 
@@ -97,11 +98,13 @@ async function waterMark() {
     const fileInput = document.getElementById('inputImg');
     const fileInput2 = document.getElementById('waterMarkImg');
     const positionInput = document.getElementById('position').value;
+    const sizeInput = document.getElementById('size').value;
 
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
     formData.append('file2', fileInput2.files[0]);
     formData.append('positionInput', positionInput);
+    formData.append('sizeInput', sizeInput);
 
     const response = await fetch('/waterMark', {
         method: 'POST',
@@ -112,6 +115,7 @@ async function waterMark() {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         const img = document.getElementById('processedImage');
+        
         img.src = url;
         img.style.maxHeight = '500px';
         img.style.maxWidth = '1000px';
