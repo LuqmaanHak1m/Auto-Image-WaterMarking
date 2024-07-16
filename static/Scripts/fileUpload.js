@@ -74,6 +74,7 @@ async function blackAndWhite() {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         const img = document.getElementById('processedImage');
+        
         img.src = url;
         img.style.maxHeight = '500px';
         img.style.maxWidth = '1000px';
@@ -81,6 +82,15 @@ async function blackAndWhite() {
     } else {
         alert('Failed to upload image');
     }
+    
+}
+
+function setLink(){
+    const img = document.getElementById('processedImage');
+    const link = document.getElementById('processedImageLink');
+
+    link.setAttribute("href", img.src);
+    link.setAttribute("download", "processedImage.png");
 }
 
 async function waterMark() {
