@@ -44,7 +44,11 @@ def converToWaterMark(inputImgFile, waterMarkFile, inputPos):
             position = (inputImg.width - region.width, inputImg.height - region.height)
 
     # Pasting the watermark on top of the original image
-    inputImg.paste(region, position, region)
+
+    if region.has_transparency_data:
+        inputImg.paste(region, position, region)
+    else:
+        inputImg.paste(region, position)
 
 
     ## Sending the image back
@@ -52,7 +56,7 @@ def converToWaterMark(inputImgFile, waterMarkFile, inputPos):
     
     # Save the processed image to a BytesIO object
     img_io = io.BytesIO()
-    processed_image.save(img_io, 'JPEG')
+    processed_image.save(img_io, 'PNG')
     img_io.seek(0)
 
     return img_io

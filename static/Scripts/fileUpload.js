@@ -1,3 +1,13 @@
+window.addEventListener("DOMContentLoaded", (event) => {
+    document.getElementById('singleUploadForm').addEventListener('submit', function(event) {
+        checkIfFileInputted(event, blackAndWhite, 'inputImg');
+    });
+
+    document.getElementById('doubleUploadForm').addEventListener('submit', function(event) {
+        checkIfFileInputted(event, waterMark, 'inputImg', 'waterMarkImg');
+    });
+});
+
 function displayInputFile() {
     const fileInput = document.getElementById('inputImg');
     const file = fileInput.files[0];
@@ -6,15 +16,10 @@ function displayInputFile() {
     if (file) {
         const reader = new FileReader();
         
-        
         reader.onload = function(e) {
-            // Clear previous content
             filePreview.innerHTML = '';
-            
 
-            // Check file type and display accordingly
             if (file.type.startsWith('image/')) {
-                // Display image
                 const img = document.createElement('img');
                 img.src = e.target.result;
                 img.style.maxHeight = '300px';
@@ -24,7 +29,6 @@ function displayInputFile() {
         };
         
         reader.readAsDataURL(file);
-
     } else {
         filePreview.textContent = 'No file selected';
     }
@@ -38,16 +42,10 @@ function displayWaterMarkFile() {
     if (file) {
         const reader = new FileReader();
         
-        
         reader.onload = function(e) {
-            // Clear previous content
             filePreview.innerHTML = '';
-            
 
-            // Check file type and display accordingly
             if (file.type.startsWith('image/')) {
-
-                // Display image
                 const img = document.createElement('img');
                 img.src = e.target.result;
                 img.style.maxHeight = '300px';
@@ -57,75 +55,79 @@ function displayWaterMarkFile() {
         };
         
         reader.readAsDataURL(file);
-
     } else {
         filePreview.textContent = 'No file selected';
     }
 }
 
-function blackAndWhite() {
-    document.getElementById('singleUploadForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
+async function blackAndWhite() {
+    const fileInput = document.getElementById('inputImg');
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
 
-        // Getting input file
-        const fileInput = document.getElementById('inputImg');
-        const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
-
-        // Sending file to route
-        const response = await fetch('/blackAndWhite', {
-            method: 'POST',
-            body: formData
-        });
-
-        // Respose control
-        if (response.ok) {
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const img = document.getElementById('processedImage');
-            img.src = url;
-            img.style.maxHeight = '500px';
-            img.style.maxWidth = '1000px';
-            img.style.display = 'block';
-        } else {
-            alert('Failed to upload image');
-        }
+    const response = await fetch('/blackAndWhite', {
+        method: 'POST',
+        body: formData
     });
+
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const img = document.getElementById('processedImage');
+        img.src = url;
+        img.style.maxHeight = '500px';
+        img.style.maxWidth = '1000px';
+        img.style.display = 'block';
+    } else {
+        alert('Failed to upload image');
+    }
 }
 
-function waterMark() {
-    document.getElementById('doubleUploadForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
+async function waterMark() {
+    const fileInput = document.getElementById('inputImg');
+    const fileInput2 = document.getElementById('waterMarkImg');
+    const positionInput = document.getElementById('position').value;
 
-        // Getting input file
-        const fileInput = document.getElementById('inputImg');
-        const fileInput2 = document.getElementById('waterMarkImg');
-        let positionInput = document.getElementById('position');
-        positionInput = positionInput.options[positionInput.selectedIndex].text;
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('file2', fileInput2.files[0]);
+    formData.append('positionInput', positionInput);
 
-        const formData = new FormData();
-
-        formData.append('file', fileInput.files[0]);
-        formData.append('file2', fileInput2.files[0]);
-        formData.append('positionInput', positionInput);
-
-        // Sending file to route
-        const response = await fetch('/waterMark', {
-            method: 'POST',
-            body: formData
-        });
-
-        // Respose control
-        if (response.ok) {
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const img = document.getElementById('processedImage');
-            img.src = url;
-            img.style.maxHeight = '500px';
-            img.style.maxWidth = '1000px';
-            img.style.display = 'block';
-        } else {
-            alert('Failed to upload image');
-        }
+    const response = await fetch('/waterMark', {
+        method: 'POST',
+        body: formData
     });
+
+    if (response.ok) {
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const img = document.getElementById('processedImage');
+        img.src = url;
+        img.style.maxHeight = '500px';
+        img.style.maxWidth = '1000px';
+        img.style.display = 'block';
+    } else {
+        alert('Failed to upload image');
+    }
+}
+
+function checkIfFileInputted(event, func, ...ids) {
+    event.preventDefault();
+    
+    let valid = true;
+
+    for (let id of ids) {
+        let fileInput = document.getElementById(id).files;
+        if (fileInput.length != 1) {
+            alert("Make sure to input the correct number of images!");
+            valid = false;
+            break;
+        }
+    }
+
+    if (func && valid) {   
+        func();
+    } else if (!func) {
+        alert(`Function ${func} is undefined`);
+    }
 }

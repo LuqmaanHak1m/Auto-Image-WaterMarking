@@ -22,7 +22,7 @@
         <h1>Auto Watermarker</h1>
     </div>
 
-    <!-- 3 columns -->
+    <!-- Layout columns -->
     <div class="container-fluid  me-3 ">
         <div class="row justify-content-around">
 
@@ -42,7 +42,7 @@
                 <div class="col">
                     <!-- Single Image Options -->
                     <form id="singleUploadForm">
-                        <input class="btn btn-primary" type="submit"  onclick="blackAndWhite()" value="Black and White">
+                        <input class="btn btn-light btn-outline-dark" type="submit"  onclick="blackAndWhite()" value="Black and White">
                     </form>
                 </div>
 
@@ -63,15 +63,14 @@
                 <div class="row">
 
                     <!-- Watermark Image Form -->
-                    <div class="col">
-                        <label for="waterMarkImg">Select image:</label>
-                        <input class="mx-auto w-auto btn btn-outline-light" type="file" id="waterMarkImg" name="waterMarkImg" accept="image/*" oninput="displayWaterMarkFile()">
-                    </div>
+                    <div class="row">
+                        <div class="col p-1 ">
+                            <label for="waterMarkImg">Select image:</label>
+                            <input class="mx-auto w-auto btn btn-outline-light" type="file" id="waterMarkImg" name="waterMarkImg" accept="image/*" oninput="displayWaterMarkFile()">
+                        </div>
 
-                    <!-- Position dropdown -->
-                    <div class="col p-2">
-
-                        <div class="p-1">
+                        <div class="col p-1">
+                            <label for="position">Select position:</label>
                             <select class="form-select " id="position" name="position">
                                 <option class="dropdown-item">Bottom Right</option>
                                 <option class="dropdown-item">Bottom Left</option>
@@ -79,12 +78,18 @@
                                 <option class="dropdown-item">Top Left</option>
                             </select>
                         </div>
+                    </div>
+
+                    <!-- Position dropdown -->
+                    <div class="col p-2">
+
+                        
 
 
                     
                         <!-- 2 Image Options -->
                         <form id="doubleUploadForm">
-                            <input class="btn btn-primary" type="submit" onclick="waterMark()" value="Water Mark">
+                            <input class="btn btn-light btn-outline-dark" type="submit" value="Water Mark">
                         </form>
                     </div>
                 </div>
@@ -98,7 +103,7 @@
         </div>
 
         <!-- Output Image section -->
-        <div class="mx-4 my-2 row border rounded border-3 border-dark primary">
+        <div class="mx-4 my-2 row border rounded border-3 shadow border-dark primary">
             <div class="col-2">
                 <h2>Processed Image:</h2>
             </div>
